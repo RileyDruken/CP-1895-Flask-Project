@@ -1,5 +1,49 @@
 {% extends 'base.html' %}
 
+{% block head %}
+	<link href="/static/styles/add.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-    <h1>{% block title %} Add {% endblock %}</h1>
+    <h1>{% block title %} Add Game Here {% endblock %}</h1>
+    {% if error %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+    <div class="container">
+        <form method="post" class="needs-validation" action="/add" enctype="multipart/form-data" id="form" novalidate>
+            <div class="mb-3">
+                <label for="InputName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="InputName" name="name" required>
+                <div class="invalid-feedback">
+                    Please Enter The Games Name
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="InputGenre" class="form-label">Genre</label>
+                <input type="text" class="form-control" id="InputGenre" name="genre" required>
+                <div class="invalid-feedback">
+                    Please Enter The Games Genre
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="InputPlatform" class="form-label">Platform</label>
+                <input type="text" class="form-control" id="InputPlatform" name="platform" required>
+                <div class="invalid-feedback">
+                    Please Enter The Games Platform
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="InputFile" class="form-label">Picture</label>
+                <input type="file" class="form-control" id="InputFile" name="picture" accept="image/png, image/jpeg, image/jpg" required>
+                <div class="invalid-feedback">
+                    An image is Required to continue
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <script src="/static/scripts/validate.js"></script>
+
 {% endblock %}
