@@ -1,5 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Removal {% endblock %}</h1>
+    <h1>{% block title %} Remove {% endblock %}</h1>
+    <div class="container">
+        <div class="row">
+            {% for game in games %}
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100  shadow-sm">
+                        <img class="card-img-top h-100 object-fit-scale" src="/static/uploads/{{ game[3] }}"
+                             alt="Card image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ game[0] }}</h5>
+                            <p class="card-text">{{ game[1] }}</p>
+                            <p class="card-text">{{ game[2] }}</p>
+                            <form method="POST" action="/removal">
+                                 <button type="submit" class="btn btn-danger" name="button" value="{{ game[3] }}">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

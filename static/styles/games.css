@@ -1,0 +1,19 @@
+.dock {
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0,0,0,30%);
+
+}
+
+.dock > a {
+    color: White;
+    margin: 50px;
+    text-decoration: none;
+}
+
+.dock > a:hover {
+    color: lightblue;
+}

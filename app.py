@@ -12,6 +12,8 @@ gamesList = []
 
 @app.route('/')
 def index():
+    if session.get('games') == None:
+        session['games'] = gamesList
     return render_template('index.html')
 
 @app.route('/games')
@@ -21,8 +23,12 @@ def games():
         return render_template('games.html', games=session["games"])
     return render_template('games.html')
 
-@app.route('/removal')
+@app.route('/removal', methods=['GET', 'POST'])
 def removal():
+    if request.method == "POST":
+        print(request.form["button"])
+    if "games" in session:
+        return render_template('removal.html', games=session["games"])
     return render_template('removal.html')
 
 @app.route('/add',  methods=["GET","POST"])
@@ -56,7 +62,7 @@ def add():
         gamesList = session['games']
         gamesList.append(game)
         session['games'] = gamesList
-
+        return render_template('games.html', games=session["games"])
     return render_template('add.html')
 
 @app.errorhandler(413)
