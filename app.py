@@ -26,7 +26,12 @@ def games():
 @app.route('/removal', methods=['GET', 'POST'])
 def removal():
     if request.method == "POST":
-        print(request.form["button"])
+        if session.get('games') != None:
+            for i in session["games"]:
+                if request.form["button"] in i:
+                    session["games"].remove(i)
+        gamesList = session['games']
+        session['games'] = gamesList
     if "games" in session:
         return render_template('removal.html', games=session["games"])
     return render_template('removal.html')
@@ -59,7 +64,10 @@ def add():
 
         else:
             return render_template('add.html', error="Image File type not supported or is empty")
-        gamesList = session['games']
+        if session.get("games") == None:
+            gamesList = []
+        else:
+            gamesList = session['games']
         gamesList.append(game)
         session['games'] = gamesList
         return render_template('games.html', games=session["games"])
