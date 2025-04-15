@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{% block title %} Games {% endblock %}</h1>
-    <div class="container shadow p-3 mb-5 rounded w-25 border position-fixed z-1 dock " data-bs-theme="dark">
-        <a href="/add">Add</a>
-        <a href="/removal">Remove</a>
+    <h1 class="text-center">{% block title %} Games {% endblock %}</h1>
+    <div class="container-fluid shadow p-3 mb-5 rounded w-25 border position-fixed z-1 dock " data-bs-theme="dark">
+        <a href="/add"><i class="bi bi-patch-plus h1"></i></a>
+        <a href="/removal"><i class="bi bi-trash h1"></i></a>
     </div>
     <div class="container">
         <div class="row">
@@ -24,11 +24,11 @@
                             <p class="card-text">{{ game[2] }}</p>
                             <div class="container mt-5">
                                 <form action="/favourite" method="POST">
-                                    <button type="submit" id="favorite" name="favouriteButton" value="{{ game[3] }}" style="background:none; border:none;">
+                                    <button type="submit" id="favorite" name="favouriteButton" value="{{ game[3] }}" class="btn">
                                         {% if game[4] == 1 %}
-                                            <i id="unchecked-star" class="bi bi-star"></i>
+                                            <i id="checked-star" class="bi bi-star-fill h4"></i>
                                         {% elif game[4] == 0 %}
-                                            <i id="checked-star" class="bi bi-star-fill"></i>
+                                            <i id="unchecked-star" class="bi bi-star h4"></i>
                                         {% endif %}
                                     </button>
                                 </form>

@@ -17,3 +17,20 @@
 .dock > a:hover {
     color: lightblue;
 }
+
+#unchecked-star {
+    color: lightblue;
+}
+
+#checked-star {
+    color: lightblue;
+}
+
+.card {
+  position: relative;
+  transition: 1s
+}
+
+.card:hover {
+  top: -10px;
+}

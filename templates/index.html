@@ -1,24 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Welcome To My Flask Project {% endblock %}</h1>
+    <h1 class="text-center">{% block title %} Welcome To My Flask Project {% endblock %}</h1>
 
     <div class="container">
         <h2 style="text-align: center">Favourite Games</h2>
         <div class="row">
-            {% for game in games %}
-                <div class="col-md-3 mb-3">
-                    <div class="card h-100  shadow-sm">
-                        <img class="card-img-top h-100 object-fit-scale" src="/static/uploads/{{ game[3] }}"
-                             alt="Card image">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ game[0] }}</h5>
-                            <p class="card-text">{{ game[1] }}</p>
-                            <p class="card-text">{{ game[2] }}</p>
+            <h1>{{ message }}</h1>
+            {% if games != [] %}
+                {% for game in games %}
+                    {% if game[4] == 1 %}
+                        <div class="col-md-3 mb-3">
+                            <div class="card h-100  shadow-sm">
+                                <img class="card-img-top h-100 object-fit-scale" src="/static/uploads/{{ game[3] }}"
+                                     alt="Card image">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ game[0] }}</h5>
+                                    <p class="card-text">{{ game[1] }}</p>
+                                    <p class="card-text">{{ game[2] }}</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 

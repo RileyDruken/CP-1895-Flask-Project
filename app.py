@@ -11,7 +11,14 @@ def index():
     if session.get('games') == None:
         session['games'] = []
 
-    return render_template('index.html', games=session['games'])
+    found_fav = 0
+    for game in session['games']:
+        if game[4] == 1:
+            found_fav = 1
+
+    if found_fav:
+        return render_template('index.html', games=session['games'])
+    return render_template('index.html', games=session['games'],message="Favourites will appear here")
 
 @app.route('/games')
 def games():
