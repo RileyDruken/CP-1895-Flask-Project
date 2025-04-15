@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect
 from werkzeug.utils import secure_filename
 import os,datetime
 
@@ -6,15 +6,12 @@ app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, "static/uploads")
 app.config['MAX_CONTENT_LENGTH'] = 160000
 app.secret_key = os.getenv("SECRET_KEY")
-
-gamesList = []
-
-
 @app.route('/')
 def index():
     if session.get('games') == None:
-        session['games'] = gamesList
-    return render_template('index.html')
+        session['games'] = []
+
+    return render_template('index.html', games=session['games'])
 
 @app.route('/games')
 def games():
@@ -22,6 +19,23 @@ def games():
         print(session["games"])
         return render_template('games.html', games=session["games"])
     return render_template('games.html')
+@app.route('/favourite', methods=["POST"])
+def favourite():
+    if session.get('games') == None:
+        session['games'] = []
+
+    gamesList = session['games']
+    for game in gamesList:
+        if game[3] == request.form.get("favouriteButton"):
+            if game[4] == 1:
+                game[4] = 0
+            elif game[4] == 0:
+                game[4] = 1
+
+    session['games'] = gamesList
+
+
+    return render_template('games.html', games=session["games"])
 
 @app.route('/removal', methods=['GET', 'POST'])
 def removal():
@@ -61,6 +75,7 @@ def add():
             game.append(genre)
             game.append(platform)
             game.append(uniquename)
+            game.append(0)
 
         else:
             return render_template('add.html', error="Image File type not supported or is empty")

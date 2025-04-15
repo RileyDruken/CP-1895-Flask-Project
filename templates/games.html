@@ -2,6 +2,7 @@
 
 {% block head %}
     <link href="/static/styles/games.css" rel="stylesheet">
+    <script src="/static/scripts/games.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -21,6 +22,17 @@
                             <h5 class="card-title">{{ game[0] }}</h5>
                             <p class="card-text">{{ game[1] }}</p>
                             <p class="card-text">{{ game[2] }}</p>
+                            <div class="container mt-5">
+                                <form action="/favourite" method="POST">
+                                    <button type="submit" id="favorite" name="favouriteButton" value="{{ game[3] }}" style="background:none; border:none;">
+                                        {% if game[4] == 1 %}
+                                            <i id="unchecked-star" class="bi bi-star"></i>
+                                        {% elif game[4] == 0 %}
+                                            <i id="checked-star" class="bi bi-star-fill"></i>
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
