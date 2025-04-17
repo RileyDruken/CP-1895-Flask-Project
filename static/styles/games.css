@@ -34,10 +34,10 @@
 }
 
 .card {
-  position: relative;
-  transition: 1s
+    position: relative;
+    transition: 1s
 }
 
 .card:hover {
-  top: -10px;
+    top: -10px;
 }

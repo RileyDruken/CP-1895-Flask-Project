@@ -24,7 +24,8 @@
                             <p class="card-text">{{ game[2] }}</p>
                             <div class="container mt-5">
                                 <form action="/favourite" method="POST">
-                                    <button type="submit" id="favorite" name="favouriteButton" value="{{ game[3] }}" class="btn">
+                                    <button type="submit" id="favorite" name="favouriteButton" value="{{ game[3] }}"
+                                            class="btn">
                                         {% if game[4] == 1 %}
                                             <i id="checked-star" class="bi bi-star-fill h4"></i>
                                         {% elif game[4] == 0 %}

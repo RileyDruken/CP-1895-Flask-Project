@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, session, redirect
 from werkzeug.utils import secure_filename
-import os,datetime
+import os, datetime
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, "static/uploads")
-app.config['MAX_CONTENT_LENGTH'] = 160000
+app.config['MAX_CONTENT_LENGTH'] = 15 * 1024 * 1024
 app.secret_key = os.getenv("SECRET_KEY")
+
+
 @app.route('/')
 def index():
     if session.get('games') == None:
@@ -18,7 +20,8 @@ def index():
 
     if found_fav:
         return render_template('index.html', games=session['games'])
-    return render_template('index.html', games=session['games'],message="Favourites will appear here")
+    return render_template('index.html', games=session['games'], message="Favourites will appear here")
+
 
 @app.route('/games')
 def games():
@@ -26,6 +29,8 @@ def games():
         print(session["games"])
         return render_template('games.html', games=session["games"])
     return render_template('games.html')
+
+
 @app.route('/favourite', methods=["POST"])
 def favourite():
     if session.get('games') == None:
@@ -41,8 +46,8 @@ def favourite():
 
     session['games'] = gamesList
 
-
     return render_template('games.html', games=session["games"])
+
 
 @app.route('/removal', methods=['GET', 'POST'])
 def removal():
@@ -57,7 +62,8 @@ def removal():
         return render_template('removal.html', games=session["games"])
     return render_template('removal.html')
 
-@app.route('/add',  methods=["GET","POST"])
+
+@app.route('/add', methods=["GET", "POST"])
 def add():
     game = []
     if request.method == "POST":
@@ -68,7 +74,6 @@ def add():
 
         if name == "" or genre == "" or platform == "":
             return render_template('add.html', error="Please fill all fields")
-
 
         if picture.content_type == "image/jpeg" or picture.content_type == "image/jpg" or picture.content_type == "image/png":
 
@@ -95,9 +100,10 @@ def add():
         return render_template('games.html', games=session["games"])
     return render_template('add.html')
 
+
 @app.errorhandler(413)
 def request_entity_too_large(error):
-    return render_template('add.html' ,error="File too large")
+    return render_template('add.html', error="File too large")
 
 
 if __name__ == '__main__':
