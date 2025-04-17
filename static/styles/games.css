@@ -1,21 +1,28 @@
 .dock {
+    position: absolute;
     top: 85%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
     text-align: center;
     backdrop-filter: blur(10px);
-    background-color: rgba(0,0,0,30%);
-
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 12px;
 }
 
 .dock > a {
     color: White;
-    margin: 50px;
     text-decoration: none;
+    transition: 1s;
 }
 
 .dock > a:hover {
     color: lightblue;
+    transform: scale(1.5);
 }
 
 #unchecked-star {

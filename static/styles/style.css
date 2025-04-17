@@ -1,0 +1,11 @@
+body {
+    background-image: url("/static/assets/controller.svg");
+    background-repeat: repeat;
+    background-size: 5%;
+    animation: ScrollImage 200s linear infinite;
+}
+
+@keyframes ScrollImage {
+  from {background-position: bottom left;}
+  to {background-position: top right;}
+}
