@@ -5,7 +5,7 @@ import os, datetime
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, "static/uploads")
 app.config['MAX_CONTENT_LENGTH'] = 15 * 1024 * 1024
-app.secret_key = os.getenv("SECRET_KEY")
+app.secret_key = "password"
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
