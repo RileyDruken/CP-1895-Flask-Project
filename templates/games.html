@@ -1,24 +1,46 @@
 {% extends 'base.html' %}
 
+{% block head %}
+    <link href="/static/styles/games.css" rel="stylesheet">
+
+{% endblock %}
+
 {% block content %}
-    <h1>{% block title %} Games {% endblock %}</h1>
-    <a href="/add">Add</a>
-    <a href="/removal">Remove</a>
-    <div class="container">
-      <div class="row">
-        {% for game in games %}
-          <div class="col-md-3 mb-3">
-            <div class="card h-100">
-              <img class="card-img-top h-100 object-fit-scale" src="/static/uploads/{{ game[3] }}" alt="Card image">
-              <div class="card-body">
-                <h5 class="card-title">{{ game[0] }}</h5>
-                <p class="card-text">{{ game[1] }}</p>
-                <p class="card-text">{{ game[2] }}</p>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
+    <h1 class="text-center">{% block title %} Games {% endblock %}</h1>
+    <div class="container-fluid shadow p-3 mb-5 rounded w-25 border position-fixed z-1 dock " data-bs-theme="dark">
+        <a href="/add"><i class="bi bi-patch-plus h1"></i></a>
+        <a href="/removal"><i class="bi bi-trash h1"></i></a>
     </div>
+    <div class="container">
+        <div class="row">
+            {% for game in games %}
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100  shadow-sm">
+                        <img class="card-img-top h-100 object-fit-scale" src="/static/uploads/{{ game[3] }}"
+                             alt="Card image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ game[0] }}</h5>
+                            <p class="card-text">{{ game[1] }}</p>
+                            <p class="card-text">{{ game[2] }}</p>
+                            <div class="container mt-5">
+                                <form action="/favourite" method="POST">
+                                    <button type="submit" id="favorite" name="favouriteButton" value="{{ game[3] }}"
+                                            class="btn">
+                                        {% if game[4] == 1 %}
+                                            <i id="checked-star" class="bi bi-star-fill h4"></i>
+                                        {% elif game[4] == 0 %}
+                                            <i id="unchecked-star" class="bi bi-star h4"></i>
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
 
 {% endblock %}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
@@ -8,25 +8,46 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
             crossorigin="anonymous"></script>
-    {% block head %} {% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/styles/style.css"> {% block head %} {% endblock %}
 </head>
-<body>
+<body class="h-100 d-flex flex-column">
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link {% if request.path == "/" %} active {% endif %}" aria-current="page" href="/">Home</a>
-        <a class="nav-link {% if request.path == "/games" %} active {% endif %}" href="/games">Games</a>
-      </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Game Lister</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link {% if request.path == "/" %} active {% endif %}" aria-current="page"
+                   href="/">Home</a>
+                <a class="nav-link {% if request.path == "/games" %} active {% endif %}" href="/games">Games</a>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
-<div class="content">
-    {% block content %} {% endblock %}
-</div>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<div class="content flex-grow-1"> {% block content %} {% endblock %} </div>
+<footer>
+    <br>
+    <br>
+    <div class="container">
+        <br><br>
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top mt-auto">
+            <p class="col-md-4 mb-0 text-muted">&copy; 2025</p>
+        </footer>
+    </div>
+</footer>
 </body>
 </html>

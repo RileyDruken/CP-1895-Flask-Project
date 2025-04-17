@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-	<link href="/static/styles/add.css" rel="stylesheet">
+    <link href="/static/styles/add.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
     {% if error %}
         <div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endif %}
-    <div class="container">
+    <div class="container-fluid w-50">
         <form method="post" class="needs-validation" action="/add" enctype="multipart/form-data" id="form" novalidate>
             <div class="mb-3">
                 <label for="InputName" class="form-label">Name</label>
@@ -36,7 +36,9 @@
             </div>
             <div class="mb-3">
                 <label for="InputFile" class="form-label">Picture</label>
-                <input type="file" class="form-control" id="InputFile" name="picture" accept="image/png, image/jpeg, image/jpg" required>
+                <input type="file" class="form-control" id="InputFile" name="picture"
+                       accept="image/png, image/jpeg, image/jpg" required>
+                <p>**Max image size 15mb**</p>
                 <div class="invalid-feedback">
                     An image is Required to continue
                 </div>

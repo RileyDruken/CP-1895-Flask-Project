@@ -1,4 +1,6 @@
 /static/uploads/*
 /.env
+/.idea/*
+
 
 !/static/uploads/.gitkeep
