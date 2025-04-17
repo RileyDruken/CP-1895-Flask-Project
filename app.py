@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, flash
 from werkzeug.utils import secure_filename
 import os, datetime
 
@@ -6,7 +6,8 @@ app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, "static/uploads")
 app.config['MAX_CONTENT_LENGTH'] = 15 * 1024 * 1024
 app.secret_key = os.getenv("SECRET_KEY")
-
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
 
 @app.route('/')
 def index():
@@ -75,13 +76,16 @@ def add():
         if name == "" or genre == "" or platform == "":
             return render_template('add.html', error="Please fill all fields")
 
-        if picture.content_type == "image/jpeg" or picture.content_type == "image/jpg" or picture.content_type == "image/png":
+        if (picture.content_type == "image/jpeg" or picture.content_type == "image/jpg" or picture.content_type == "image/png") and picture.filename != "":
 
             filename = secure_filename(picture.filename)
             timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
             uniquename = timestamp + filename
 
-            picture.save(os.path.join(app.config['UPLOAD_FOLDER'], uniquename))
+            try:
+                picture.save(os.path.join(app.config['UPLOAD_FOLDER'], uniquename))
+            except Exception as e:
+                return render_template('add.html', error=f"Error saving image: {e}")
 
             game.append(name)
             game.append(genre)
@@ -97,7 +101,9 @@ def add():
             gamesList = session['games']
         gamesList.append(game)
         session['games'] = gamesList
-        return render_template('games.html', games=session["games"])
+        session.modified = True
+        flash("Video game added", "message")
+        return redirect("/games")
     return render_template('add.html')
 
 

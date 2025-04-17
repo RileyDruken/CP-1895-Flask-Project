@@ -28,6 +28,16 @@
         </div>
     </div>
 </nav>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 <div class="content flex-grow-1"> {% block content %} {% endblock %} </div>
 <footer>
     <br>
